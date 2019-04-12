@@ -1,6 +1,7 @@
 import time
 from os import system
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -9,7 +10,7 @@ from selenium.webdriver.chrome.options import Options
 
 ChromePath = r"chromedriver.exe"
 options1 = Options()
-options1.add_argument('--headless')
+# options1.add_argument('--headless')
 options1.add_argument('--disable-gpu')
 options1.add_argument("useAutomationExtension=False")
 options1.add_argument("--log-level=3")
@@ -97,26 +98,14 @@ def getOdds():
 			print("Home odds:", str(homeOdds))
 			print("Profit $", round(((awayBet*awayOdds)-investment), 2), "when betting $", round(awayBet,2), "on Away team through", i["AwayBroker"])
 			print("Away odds:", str(awayOdds), "\n")
-	print("Done, press any key to close()")
+	print("Press any key to close.")
 	system("pause >nul")
 	driver.close()
 	driver.quit()
-try:
-	element_present = EC.presence_of_element_located((By.XPATH, """//*[@id="wisepop-150759"]/div[2]"""))
-	WebDriverWait(driver, timeout).until(element_present)
-	try:
-		time.sleep(interval)
-		driver.find_element_by_xpath("""//*[@id="wisepop-150759"]/div[2]""").click()
-		time.sleep(interval)
-		driver.find_element_by_xpath('''//*[@id="app"]/div/span/div/button''').click()
-		getOdds()
-	except:
-		print("Error, restarting at slower speed.")
-		driver.refresh()
-		time.sleep(10)
-		system("cls")
-		interval = 10
-		getOdds()
-except TimeoutException:
-	print("Timed out")
+	exit()
+
+system("cls")
+print("Close any ads on screen.")
+system("pause")
+getOdds()
 
